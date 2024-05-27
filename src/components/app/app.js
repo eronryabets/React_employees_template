@@ -20,6 +20,7 @@ class App extends Component {
                 {name: "Carl W.", salary: 5000, increase: false, id: 3},
             ]
         }
+        this.id = this.getNextId();
     }
 
     deleteItem = (id) => {
@@ -29,6 +30,21 @@ class App extends Component {
             }
 
         })
+    }
+
+    addItem = (e, name, salary) => {
+        e.preventDefault();
+        this.setState(({ data }) => {
+            const newItem =
+                { name: name, salary: salary, increase: false};
+            return {
+                data: [...data, newItem]
+            };
+        });
+    }
+
+    getNextId = () => {
+        return this.state.data.length + 1;
     }
 
     render() {
@@ -44,7 +60,10 @@ class App extends Component {
                 <EmployeesList
                     data={this.state.data}
                     onDelete={this.deleteItem}/>
-                <EmployeesAddForm/>
+                <EmployeesAddForm
+                    data={this.state.data}
+                    nextId={this.nextId}
+                    onAdd={this.addItem}/>
 
             </div>
         );
