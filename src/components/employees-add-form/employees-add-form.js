@@ -17,14 +17,6 @@ class EmployeesAddForm extends Component {
         })
     }
 
-    // onAdd = (e, data, currentId) => {
-    //     e.preventDefault();
-    //     // console.log(this.state);
-    //     // console.log(data);
-    //     // console.log(currentId);
-    //
-    // }
-
     render() {
         const {name, salary} = this.state;
         const {onAdd} = this.props;

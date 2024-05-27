@@ -20,7 +20,6 @@ class App extends Component {
                 {name: "Carl W.", salary: 5000, increase: false, id: 3},
             ]
         }
-        this.id = this.getNextId();
     }
 
     deleteItem = (id) => {
@@ -35,16 +34,21 @@ class App extends Component {
     addItem = (e, name, salary) => {
         e.preventDefault();
         this.setState(({ data }) => {
-            const newItem =
-                { name: name, salary: salary, increase: false};
+            const newItem = {
+                name: name,
+                salary: salary,
+                increase: false,
+                id: this.getNextId(data)
+            };
             return {
                 data: [...data, newItem]
             };
         });
     }
 
-    getNextId = () => {
-        return this.state.data.length + 1;
+    getNextId = (data) => {
+        const maxId = data.reduce((max, item) => Math.max(item.id, max), 0);
+        return maxId + 1;
     }
 
     render() {
@@ -61,8 +65,6 @@ class App extends Component {
                     data={this.state.data}
                     onDelete={this.deleteItem}/>
                 <EmployeesAddForm
-                    data={this.state.data}
-                    nextId={this.nextId}
                     onAdd={this.addItem}/>
 
             </div>
